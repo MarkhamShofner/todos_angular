@@ -18,4 +18,14 @@ app.controller('todosController', function() {
       this.formIsVisible = true;
     }
   };
+  this.create = function (){
+    this.todos.unshift(this.content);
+  };
+  this.edit = function(index){
+    var todo = this.todos[index];
+    this.content=todo;
+  };
+  this.update = function(index){
+    this.todos[index]=this.content;
+  };
 });

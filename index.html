@@ -8,21 +8,32 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular.min.js"></script>
   <script src="app/app.js"></script>
   <script src="app/todos/todos.controller.js"></script>
+  <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-  <div>{{5 + 5}}</div>
+  <!-- <div>{{5 + 5}}</div>
   <div>{{5 == "5"}}</div>
   <div>{{5 === "5"}}</div>
-  <div>{{"pizza"}}</div>
+  <div>{{"pizza"}}</div> -->
   <div ng-controller="todosController as todosViewModel">
-    {{todosViewModel.todos[0]}}
-    <a href="#" ng-click="todosViewModel.sayHello()">Say Hello</a>
+
+    <div ng-repeat="todo in todosViewModel.todos">
+      <p ng-show="!editTodo">{{$index + 1}}. {{todo}}</p>
+      <form ng-show="editTodo">
+        <input type="text" name="content" ng-model="todosViewModel.content">
+        <button class="new" ng-click="todosViewModel.update($index); editTodo=!editTodo"> Save </button>
+        <button ng-click="editTodo = false" class="cancel">Cancel</button>
+      </form>
+      <button class="edit" ng-click='todosViewModel.edit($index); editTodo = !editTodo'> Edit Todo </button>
+    </div>
+
+    <!-- <a href="#" ng-click="todosViewModel.sayHello()">Say Hello</a> -->
 
     <div ng-click="todosViewModel.toggleForm()">New Todo</div>
-    <form ng-show="todosViewModel.formIsVisible">
+    <form ng-show="todosViewModel.formIsVisible" ng-submit="todosViewModel.create()">
       <label>content</label>
-      <input type="text" name "content">
+      <input type="text" name="content" ng-model="todosViewModel.content">
     </form>
 
   </div>
